@@ -131,7 +131,7 @@ def _build_image_with_docker_command(client: docker.DockerClient,
   if not tag:
     tag = 'latest'
   command = [
-      'docker', 'buildx', 'build', '-t', f'{repository}:{tag}', '-t',
+      '/usr/local/bin/docker', 'buildx', 'build', '-t', f'{repository}:{tag}', '-t',
       f'{repository}:latest', '-f', dockerfile, path
   ]
 
