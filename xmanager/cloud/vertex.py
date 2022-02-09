@@ -296,6 +296,9 @@ def get_machine_spec(job: xm.Job) -> Dict[str, Any]:
       else:
         spec['accelerator_type'] = aip_v1.AcceleratorType[accelerator_type]
       spec['accelerator_count'] = int(value)
+      if accelerator_type == 'NVIDIA_TESLA_A100':
+        # Override machine type for A100
+        spec['machine_type'] = f'a2-highgpu-{int(value)}g'
   return spec
 
 
@@ -337,7 +340,7 @@ def launch(experiment_title: str, work_unit_name: str,
 def cpu_ram_to_machine_type(cpu: Optional[int], ram: Optional[int]) -> str:
   """Convert a cpu and memory spec into a machine type."""
   if cpu is None or ram is None:
-    return 'a2-highgpu-1g'
+    return 'n1-standard-4'
 
   optimal_machine_type = ''
   optimal_excess_resources = math.inf
