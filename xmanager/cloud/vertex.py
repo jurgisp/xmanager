@@ -192,6 +192,7 @@ class Client:
         sync=False,
         service_account=auth.get_service_account(),
         tensorboard=tensorboard,
+        restart_job_on_worker_restart=True,
         enable_web_access=True,
     )
     custom_job.wait_for_resource_creation()
